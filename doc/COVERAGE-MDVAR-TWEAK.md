@@ -9,17 +9,18 @@ Box B-only edit in `src/models/itwom3.0.cc`:
 
     propv.mdvar = 12;   ->   propv.mdvar = 2;
 
-`mdvar` is the Longley-Rice / ITWOM variability mode passed to `qlrpfl` / `qlrpfl2`. Mode 12 is the
-value hard-coded in several entry points. Mode 2 selects the broadcast-style single-message
-variability setting instead of 12. Which one is right depends on the coverage study, so this is
-a model-assumption change, not a bug fix.
+`mdvar` is the Longley-Rice / ITWOM variability mode passed to `qlrpfl` / `qlrpfl2`. In the ITM
+convention the tens digit adds options (10 and up drop location variability) and the units digit
+picks the reliability mode (2 is mobile). So 12 and 2 differ in whether location variability is
+included. This is a model-assumption change, not a bug fix. Check the ITWOM source comments before
+relying on this summary.
 
 ## Why
 
-It was used for the Panguna coverage runs on 1 to 2 Aug 2026 (a5-mdvar test of how the variability
-mode shifts predicted coverage). The finals from those runs are in
-`/opt/te/backups/coverage-finals-2026-10-25.tar.gz` on Box B (sha256 in the file beside it).
-Reason for the test: compare coverage under mdvar 2 against the stock mode 12.
+The Box B copy was named `a5-mdvar` and last touched 1 to 3 Aug 2026, alongside the Panguna coverage
+runs. Finals from those runs are in `/opt/te/backups/coverage-finals-2026-10-25.tar.gz` on Box B
+(sha256 in the file beside it). The stated purpose is not recorded; it looks like a test of how
+the variability mode shifts predicted coverage. Confirm with whoever ran it.
 
 ## Where `propv.mdvar = 12;` exists in this base (1193a22)
 
